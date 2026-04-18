@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import emailjs from '@emailjs/browser';
 import {
   ArrowRight, FlaskConical, Code2, Brain, BarChart3,
-  GraduationCap, ChevronRight, Star, Users, Award, Clock,
-  CheckCircle2, Microscope, Cpu, Mail, MessageCircle
+  GraduationCap, ChevronRight, Star, Users, Award,
+  Microscope, Cpu, Mail, MessageCircle
 } from 'lucide-react';
 import useReveal from '../hooks/useReveal';
 
@@ -84,17 +85,56 @@ export default function Home() {
   const aboutRef = useReveal();
   const servicesRef = useReveal();
   const statsRef = useReveal();
-  const whyRef = useReveal();
-  const testimonialsRef = useReveal();
-  const faqRef = useReveal();
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' });
+  const [isSending, setIsSending] = useState(false);
 
   // Functional Logic for buttons
   const handleWhatsApp = () => {
     window.open(`https://wa.me/23407041707321?text=Hello Citylight, I'm interested in your services.`, '_blank');
   };
 
-  const handleEmail = () => {
-    window.location.href = "mailto:afolayanshem@gmail.com?subject=Inquiry about Research/Technology Services";
+  const handleEmailSubmit = async (e) => {
+    e.preventDefault();
+    setIsSending(true);
+
+    // Check if environment variables are set
+    if (!process.env.REACT_APP_EMAILJS_SERVICE_ID ||
+        !process.env.REACT_APP_EMAILJS_TEMPLATE_ID ||
+        !process.env.REACT_APP_EMAILJS_PUBLIC_KEY) {
+      alert('EmailJS configuration is missing. Please check your .env.local file.');
+      setIsSending(false);
+      return;
+    }
+
+    try {
+      await emailjs.send(
+        process.env.REACT_APP_EMAILJS_SERVICE_ID,
+        process.env.REACT_APP_EMAILJS_TEMPLATE_ID,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          message: formData.message,
+          to_email: 'afolayanshem@gmail.com',
+        },
+        process.env.REACT_APP_EMAILJS_PUBLIC_KEY
+      );
+
+      alert('🎉 Thank you! Your message has been sent successfully. We\'ll get back to you soon!');
+      setFormData({ name: '', email: '', message: '' });
+    } catch (error) {
+      let errorMessage = 'Failed to send email. ';
+
+      if (error.text) {
+        errorMessage += error.text;
+      } else if (error.message) {
+        errorMessage += error.message;
+      } else {
+        errorMessage += 'Please check your EmailJS configuration and try again.';
+      }
+
+      alert(errorMessage);
+    }
+    setIsSending(false);
   };
 
   return (
@@ -134,7 +174,7 @@ export default function Home() {
                 <MessageCircle size={20} /> WHATSAPP US
               </button>
               <button 
-                onClick={handleEmail}
+                onClick={() => window.location.href = "mailto:afolayanshem@gmail.com?subject=Inquiry about Research/Technology Services"}
                 className="flex items-center gap-3 px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/10 text-white font-black rounded-xl transition-all hover:scale-105"
               >
                 <Mail size={20} /> SEND EMAIL
@@ -217,7 +257,7 @@ export default function Home() {
            <div className="relative order-2 lg:order-1">
               <div className="absolute -top-4 -left-4 w-full h-full border border-primary-500/30 rounded-2xl" />
               <img
-                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=700&q=80&auto=format&fit=crop"
+                src="/tech.jpg"
                 alt="About"
                 className="relative rounded-2xl object-cover h-[450px] w-full"
               />
@@ -284,27 +324,52 @@ export default function Home() {
       >
         <div className="max-w-5xl mx-auto p-12 rounded-3xl bg-primary-500 text-center">
             <h2 className="font-display text-4xl lg:text-5xl font-black text-black mb-8 uppercase tracking-tighter">Ready to start?</h2>
-            <div className="flex flex-wrap gap-4 justify-center">
-              <button onClick={handleWhatsApp} className="px-10 py-5 bg-black text-white font-black rounded-xl hover:scale-105 transition-transform">MESSAGE WHATSAPP</button>
-              <button onClick={handleEmail} className="px-10 py-5 bg-white text-black font-black rounded-xl hover:scale-105 transition-transform shadow-xl">SEND AN EMAIL</button>
-            </div>
+            <form onSubmit={handleEmailSubmit} className="space-y-6">
+              <div className="grid md:grid-cols-2 gap-6">
+                <input
+                  type="text"
+                  placeholder="Your Name"
+                  value={formData.name}
+                  onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  required
+                  className="px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/70 focus:outline-none focus:border-white/40"
+                />
+                <input
+                  type="email"
+                  placeholder="Your Email"
+                  value={formData.email}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  required
+                  className="px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/70 focus:outline-none focus:border-white/40"
+                />
+              </div>
+              <textarea
+                placeholder="Your Message"
+                value={formData.message}
+                onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                required
+                rows="4"
+                className="w-full px-4 py-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/70 focus:outline-none focus:border-white/40 resize-none"
+              ></textarea>
+              <div className="flex flex-wrap gap-4 justify-center">
+                <button 
+                  type="submit" 
+                  disabled={isSending}
+                  className="px-10 py-5 bg-black text-white font-black rounded-xl hover:scale-105 transition-transform disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isSending ? 'SENDING...' : 'SEND EMAIL'}
+                </button>
+                <button 
+                  type="button"
+                  onClick={handleWhatsApp} 
+                  className="px-10 py-5 bg-white text-black font-black rounded-xl hover:scale-105 transition-transform shadow-xl"
+                >
+                  MESSAGE WHATSAPP
+                </button>
+              </div>
+            </form>
         </div>
       </motion.section>
-
-      {/* Sticky WhatsApp Icon */}
-      <motion.div 
-        className="fixed bottom-6 right-6 z-50"
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{ delay: 1, type: "spring", stiffness: 260, damping: 20 }}
-      >
-        <button 
-          onClick={handleWhatsApp} 
-          className="bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg transition-all hover:scale-110"
-        >
-          <MessageCircle size={24} />
-        </button>
-      </motion.div>
     </div>
   );
 }

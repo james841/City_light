@@ -1,148 +1,184 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Target, Eye, Lightbulb, Users, Award, Globe } from 'lucide-react';
+import { 
+  ArrowRight, Target, Eye, Lightbulb, Users, 
+  Award, Globe, Sparkles, Fingerprint, Compass 
+} from 'lucide-react';
 import useReveal from '../hooks/useReveal';
 
+/* ── Value Card ── */
 function ValueCard({ icon: Icon, title, desc }) {
   return (
-    <div className="card-dark text-center">
-      <div className="w-14 h-14 bg-primary-900/60 border border-primary-800 rounded-2xl flex items-center justify-center mx-auto mb-4">
-        <Icon size={24} className="text-primary-400" />
+    <div className="group relative p-8 rounded-[2rem] bg-white/[0.02] border border-white/5 hover:bg-white/[0.04] transition-all duration-500 overflow-hidden">
+      <div className="absolute -right-4 -top-4 w-24 h-24 bg-primary-500/10 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
+      <div className="w-14 h-14 bg-primary-500/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
+        <Icon size={28} className="text-primary-400" />
       </div>
-      <h3 className="font-display font-bold text-white mb-2">{title}</h3>
+      <h3 className="font-display font-bold text-white text-xl mb-3 tracking-tight">{title}</h3>
       <p className="text-gray-400 font-body text-sm leading-relaxed">{desc}</p>
     </div>
   );
 }
 
+/* ── Team Card ── */
 function TeamCard({ name, role, bio, initials }) {
   return (
-    <div className="card-dark group text-center">
-      <div className="w-20 h-20 bg-gradient-to-br from-primary-700 to-primary-900 rounded-full flex items-center justify-center mx-auto mb-4 text-white font-display text-xl font-bold">
-        {initials}
+    <div className="group p-1">
+      <div className="bg-[#0A0A0A] border border-white/5 rounded-[2.5rem] p-8 h-full transition-all duration-500 hover:border-primary-500/30">
+        <div className="relative w-24 h-24 mx-auto mb-6">
+          <div className="absolute inset-0 bg-gradient-to-tr from-primary-600 to-emerald-400 rounded-3xl rotate-6 group-hover:rotate-12 transition-transform duration-500" />
+          <div className="relative inset-0 w-full h-full bg-[#111] rounded-3xl flex items-center justify-center text-white font-display text-2xl font-black border border-white/10 shadow-2xl">
+            {initials}
+          </div>
+        </div>
+        <h3 className="font-display font-bold text-white text-lg mb-1">{name}</h3>
+        <div className="text-primary-400 text-[10px] font-black uppercase tracking-[0.2em] mb-4">{role}</div>
+        <p className="text-gray-500 text-sm font-body leading-relaxed line-clamp-3 group-hover:line-clamp-none transition-all duration-500">{bio}</p>
       </div>
-      <h3 className="font-display font-semibold text-white mb-1">{name}</h3>
-      <div className="text-primary-400 text-xs font-mono tracking-wide mb-3">{role}</div>
-      <p className="text-gray-400 text-sm font-body leading-relaxed">{bio}</p>
     </div>
   );
 }
 
 export default function About() {
-  const heroRef = useReveal();
-  const missionRef = useReveal();
-  const valuesRef = useReveal();
-  const teamRef = useReveal();
+  const refs = {
+    hero: useReveal(),
+    mission: useReveal(),
+    values: useReveal(),
+    team: useReveal(),
+  };
 
   return (
-    <div className="pt-20">
-      {/* Hero */}
-      <section className="relative py-28 overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary-700/8 rounded-full blur-3xl" />
-        </div>
-        <div ref={heroRef} className="reveal relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
-          <div className="max-w-3xl">
-            <div className="section-tag"><span className="w-2 h-2 bg-primary-400 rounded-full"/>About Citylight</div>
-            <h1 className="font-display text-5xl lg:text-6xl font-black text-white leading-tight mb-6">
-              Driven by{' '}
-              <span className="gradient-text">Curiosity</span>,<br />
-              Powered by{' '}
-              <span className="gradient-text">Technology</span>
+    <div className="bg-[#050505] min-h-screen">
+      {/* ── HERO SECTION ── */}
+      <section className="relative pt-32 pb-20 overflow-hidden">
+        {/* Decorative Background */}
+        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-primary-950/20 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/4" />
+        
+        <div ref={refs.hero} className="reveal relative z-10 max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="max-w-4xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-primary-400 text-xs font-bold tracking-widest uppercase mb-8">
+              <Sparkles size={14} /> The Citylight Identity
+            </div>
+            <h1 className="font-display text-6xl lg:text-8xl font-black text-white leading-[0.9] mb-8 tracking-tighter">
+              Driven by <span className="text-primary-400 italic">Curiosity.</span><br />
+              Powered by <span className="text-emerald-400">Logic.</span>
             </h1>
-            <p className="text-gray-400 font-body text-xl leading-relaxed">
-              We are a research and technology company committed to delivering rigorous insights and innovative software that make a real difference in organisations across Nigeria and beyond.
+            <p className="text-gray-400 font-body text-xl lg:text-2xl leading-relaxed max-w-2xl">
+              A high-precision research and technology firm engineering modern solutions for the continent’s most ambitious organisations.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Image + Story */}
-      <section className="py-16 max-w-7xl mx-auto px-6 lg:px-8">
-        <div ref={missionRef} className="reveal grid lg:grid-cols-2 gap-16 items-center">
-          <img
-            src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=700&q=80&auto=format&fit=crop"
-            alt="Citylight office team"
-            className="rounded-2xl object-cover h-[450px] w-full"
-          />
+      {/* ── STORY SECTION ── */}
+      <section className="py-24 relative">
+        <div ref={refs.mission} className="reveal max-w-7xl mx-auto px-6 lg:px-8 grid lg:grid-cols-2 gap-20 items-center">
+          <div className="relative">
+            <div className="absolute -inset-4 bg-primary-500/10 rounded-[3rem] blur-2xl" />
+            <img
+              src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&q=80&auto=format&fit=crop"
+              alt="Team collaboration"
+              className="relative rounded-[2rem] object-cover h-[500px] w-full border border-white/10 shadow-2xl grayscale hover:grayscale-0 transition-all duration-700"
+            />
+          </div>
           <div>
-            <div className="section-tag"><span className="w-2 h-2 bg-primary-400 rounded-full"/>Our Story</div>
-            <h2 className="font-display text-3xl lg:text-4xl font-bold text-white mb-5">
-              From a Shared Vision to a Growing Reality
-            </h2>
-            <p className="text-gray-400 font-body leading-relaxed mb-4">
-              Citylight Research and Technologies was founded by a group of passionate researchers and engineers who believed that African organisations deserve access to world-class research and technology services.
-            </p>
-            <p className="text-gray-400 font-body leading-relaxed mb-4">
-              We saw the gap: many organisations were struggling with outdated methods, poor data infrastructure, and generic software that never quite fit their needs. We built Citylight to close that gap.
-            </p>
-            <p className="text-gray-400 font-body leading-relaxed mb-8">
-              Today, we serve clients from academic institutions and government bodies to startups and established enterprises — always with the same commitment to quality, innovation, and impact.
-            </p>
-            <Link to="/contact" className="btn-primary">
-              Work With Us <ArrowRight size={16} />
-            </Link>
+            <h2 className="font-display text-4xl lg:text-5xl font-black text-white mb-8 tracking-tight">The <span className="text-primary-400">Vision</span> Behind The Code</h2>
+            <div className="space-y-6 text-gray-400 font-body text-lg leading-relaxed">
+              <p>
+                Citylight was born from a simple realization: technical skill without research is aimless, and research without technology is stagnant. 
+              </p>
+              <p>
+                We built this firm to bridge that gap, providing African institutions with the same level of rigorous data infrastructure and custom engineering found in the world’s leading tech hubs.
+              </p>
+              <p className="text-white font-bold italic border-l-4 border-primary-500 pl-6 py-2">
+                "We don't just build apps; we build engines of growth."
+              </p>
+            </div>
+            <div className="mt-10">
+                <Link to="/contact" className="inline-flex items-center gap-3 px-8 py-4 bg-white text-black font-black rounded-full hover:bg-primary-400 transition-all group">
+                    WORK WITH US <ArrowRight size={18} className="group-hover:translate-x-2 transition-transform" />
+                </Link>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Mission / Vision / Values */}
-      <section className="py-24 bg-surface">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8">
-          <div ref={valuesRef} className="reveal">
-            <div className="grid md:grid-cols-3 gap-6 mb-16">
-              <ValueCard icon={Target} title="Our Mission"
-                desc="To provide organisations with rigorous research, advanced data analysis, and custom software that enable data-driven decisions and sustainable growth." />
-              <ValueCard icon={Eye} title="Our Vision"
-                desc="To be Africa's most trusted partner for research and technology, driving a knowledge-based transformation across industries and institutions." />
-              <ValueCard icon={Lightbulb} title="Our Approach"
-                desc="We blend academic rigour with practical innovation — combining the best of scientific methodology with agile, user-centred technology development." />
-            </div>
+      {/* ── MISSION / VISION BENTO ── */}
+      <section className="py-24 bg-white/[0.01]">
+        <div ref={refs.values} className="reveal max-w-7xl mx-auto px-6 lg:px-8">
+          <div className="grid md:grid-cols-3 gap-6 mb-24">
+            <ValueCard 
+              icon={Target} 
+              title="Our Mission" 
+              desc="To arm organizations with high-rigor research and custom-engineered software that turns data into a decisive competitive advantage." 
+            />
+            <ValueCard 
+              icon={Eye} 
+              title="Our Vision" 
+              desc="To be the primary catalyst for Africa’s knowledge-based transformation, setting the standard for research and tech integration." 
+            />
+            <ValueCard 
+              icon={Compass} 
+              title="Our Approach" 
+              desc="Agile, scientific, and user-centric. We apply the scientific method to software development and data science." 
+            />
+          </div>
 
-            {/* Core values */}
-            <h2 className="font-display text-3xl font-bold text-white text-center mb-10">Our Core Values</h2>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[
-                { icon: Award, title: 'Excellence', desc: 'We hold every output to the highest standard, never cutting corners on quality.' },
-                { icon: Lightbulb, title: 'Innovation', desc: 'We constantly seek better methods, tools, and approaches to serve our clients.' },
-                { icon: Users, title: 'Collaboration', desc: 'We partner closely with clients, treating every project as a shared endeavour.' },
-                { icon: Globe, title: 'Impact', desc: 'Our work is measured by real-world outcomes, not just deliverables.' },
-                { icon: Target, title: 'Integrity', desc: 'We are transparent, honest, and ethical in all our engagements.' },
-                { icon: Eye, title: 'Curiosity', desc: 'We love hard questions — they drive the best research and the best software.' },
-              ].map(({ icon: Icon, title, desc }) => (
-                <div key={title} className="flex gap-4 p-5 rounded-xl border border-white/5 hover:border-primary-800 transition-colors">
-                  <div className="w-10 h-10 bg-primary-900/50 rounded-xl flex items-center justify-center shrink-0">
-                    <Icon size={18} className="text-primary-400" />
-                  </div>
-                  <div>
-                    <h4 className="font-display font-semibold text-white mb-1">{title}</h4>
-                    <p className="text-gray-400 text-sm font-body leading-relaxed">{desc}</p>
-                  </div>
+          {/* Core Values Minimalist List */}
+          <div className="text-center mb-16">
+            <h2 className="font-display text-4xl font-black text-white uppercase tracking-widest">Core DNA</h2>
+            <div className="h-1 w-20 bg-primary-500 mx-auto mt-4" />
+          </div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {[
+              { icon: Fingerprint, title: 'Uniqueness', desc: 'Every solution is bespoke. No generic templates, no shortcuts.' },
+              { icon: Sparkles, title: 'Elegance', desc: 'Complexity made simple. We strive for beauty in our code and reports.' },
+              { icon: Users, title: 'Unity', desc: 'We operate as an extension of your own internal team.' },
+              { icon: Globe, title: 'Local Context', desc: 'Global standards applied with a deep understanding of the African market.' },
+              { icon: Award, title: 'Rigor', desc: 'Statistical significance is our baseline, not our goal.' },
+              { icon: Lightbulb, title: 'Innovation', desc: 'Constant R&D ensures you always have the latest tech stack.' },
+            ].map(({ icon: Icon, title, desc }) => (
+              <div key={title} className="p-6 rounded-2xl border border-white/5 flex items-start gap-4 hover:border-white/20 transition-all bg-black/40">
+                <Icon size={20} className="text-primary-400 shrink-0 mt-1" />
+                <div>
+                  <h4 className="font-display font-bold text-white text-sm mb-1 uppercase tracking-wider">{title}</h4>
+                  <p className="text-gray-500 text-xs font-body leading-relaxed">{desc}</p>
                 </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* Team */}
-      <section className="py-24 max-w-7xl mx-auto px-6 lg:px-8">
-        <div ref={teamRef} className="reveal text-center mb-14">
-          <div className="section-tag justify-center"><span className="w-2 h-2 bg-primary-400 rounded-full"/>Our Team</div>
-          <h2 className="font-display text-4xl font-bold text-white mb-4">The People Behind the Work</h2>
-          <p className="text-gray-400 font-body max-w-2xl mx-auto">
-            Our multidisciplinary team brings together expertise in research, data science, and software engineering.
+      {/* ── TEAM SECTION ── */}
+      <section className="py-32 max-w-7xl mx-auto px-6 lg:px-8">
+        <div ref={refs.team} className="reveal text-center mb-20">
+          <h2 className="font-display text-5xl lg:text-6xl font-black text-white mb-6">The Architects.</h2>
+          <p className="text-gray-400 font-body text-lg max-w-xl mx-auto">
+            A specialized collective of researchers, engineers, and data scientists.
           </p>
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <TeamCard name="Isaac O. Damola" role="Founder & Lead Researcher" initials="ID"
-            bio="Academic researcher and technologist with expertise in data analysis and research methodology." />
+        
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <TeamCard name="Isaac O. Damola" role="Lead Researcher" initials="ID"
+            bio="Strategic academic technologist focusing on research methodology and advanced data structures." />
           <TeamCard name="Favour Adeyemi" role="Head of Software" initials="FA"
-            bio="Full-stack engineer specialising in building custom enterprise software and data-driven applications." />
+            bio="Architecting enterprise-grade full-stack applications with a focus on scalability and security." />
           <TeamCard name="Amara Chukwu" role="Data Scientist" initials="AC"
-            bio="Machine learning expert with a track record of building predictive models across healthcare and finance." />
+            bio="Building high-precision predictive models and machine learning pipelines for complex industries." />
           <TeamCard name="Bola Osei" role="Research Analyst" initials="BO"
-            bio="Business and academic researcher with deep knowledge of qualitative and quantitative methodologies." />
+            bio="Expert in qualitative and quantitative business insights, translating data into human strategy." />
+        </div>
+      </section>
+
+      {/* ── FOOTER-ISH CTA ── */}
+      <section className="py-20 px-6 border-t border-white/5 bg-[#080808]">
+        <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between gap-10">
+            <h2 className="font-display text-3xl font-black text-white">Have a project in mind?</h2>
+            <Link to="/contact" className="px-12 py-5 bg-primary-500 text-black font-black rounded-full hover:scale-105 transition-transform text-center">
+                LET'S TALK RESEARCH
+            </Link>
         </div>
       </section>
     </div>
