@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import {
-  FlaskConical, BarChart3, Brain, Code2, GraduationCap,
-  Users, ArrowRight, CheckCircle2, Microscope, Database,
+  FlaskConical, BarChart3, Brain, Code2,
+  ArrowRight, CheckCircle2, Microscope, Database,
   LineChart, Smartphone, Globe, ServerCog, Sparkles
 } from 'lucide-react';
 import useReveal from '../hooks/useReveal';
@@ -23,7 +23,7 @@ const services = [
       'Grant & Dissertation Support',
       'Ethical Compliance Audits',
     ],
-    img: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80&auto=format&fit=crop',
+    img: '/tech2.jpg',
   },
   {
     id: 'business-research',
