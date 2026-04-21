@@ -83,7 +83,7 @@ export default function Contact() {
               <div className="space-y-6">
                 {[
                   { icon: Mail, label: 'Email Us', val: 'info@citylightresearch.com', sub: 'We respond within 24 hours.' },
-                  { icon: Phone, label: 'Call Support', val: '+234 (0) XXX XXX XXXX', sub: 'Mon-Fri, 9am - 5pm.' },
+                  { icon: Phone, label: 'Call Support', val: '+234 070 417 07321', sub: 'Mon-Fri, 9am - 5pm.' },
                   { icon: MapPin, label: 'Visit HQ', val: 'Lagos, Nigeria', sub: 'Innovation Hub, Victoria Island.' },
                 ].map((item, i) => (
                   <div key={i} className="group flex items-start gap-6 p-6 rounded-2xl border border-slate-100 bg-stone-50 hover:border-[#722F37]/30 hover:bg-white hover:shadow-xl transition-all duration-300">
