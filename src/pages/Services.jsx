@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import {
   FlaskConical, BarChart3, Brain, Code2,
   ArrowRight, CheckCircle2, Microscope, Database,
-  LineChart, Smartphone, Globe, ServerCog, Sparkles
+  LineChart, Smartphone, Globe, ServerCog
 } from 'lucide-react';
 import useReveal from '../hooks/useReveal';
 
