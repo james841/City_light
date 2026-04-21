@@ -6,30 +6,32 @@ import Logo from './Logo';
 export default function Footer() {
   const year = new Date().getFullYear();
   return (
-    <footer className="bg-surface border-t border-white/5">
-      {/* CTA Banner */}
-      <div className="bg-gradient-to-r from-primary-900/60 via-primary-800/40 to-primary-900/60 border-b border-primary-800/30">
-        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-14 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div>
-            <h3 className="font-display text-2xl lg:text-3xl font-bold text-white mb-2">
-              Ready to bring your idea to life?
+    <footer className="bg-[#722F37] border-t border-white/10">
+      {/* ── CTA BANNER ── */}
+      <div className="bg-white/5 border-b border-white/10">
+        <div className="max-w-7xl mx-auto px-6 lg:px-8 py-14 flex flex-col md:flex-row items-center justify-between gap-8">
+          <div className="text-center md:text-left">
+            <h3 className="font-display text-2xl lg:text-3xl font-black text-white mb-2 tracking-tighter">
+              READY TO BRING YOUR IDEA TO LIFE?
             </h3>
-            <p className="text-gray-400 font-body">
+            <p className="text-white/60 font-body font-medium">
               Let's build something meaningful together.
             </p>
           </div>
-          <Link to="/contact" className="btn-primary px-8 py-3.5 text-base whitespace-nowrap">
+          <Link to="/contact" className="bg-white text-[#722F37] font-black uppercase tracking-widest px-8 py-4 rounded-full text-sm hover:bg-stone-100 transition-all shadow-2xl">
             Start a Project
           </Link>
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 text-white">
           {/* Brand */}
           <div className="lg:col-span-1">
-            <Logo />
-            <p className="text-gray-400 font-body text-sm leading-relaxed mt-4 mb-6">
+            <div className="brightness-0 invert">
+               <Logo />
+            </div>
+            <p className="text-white/60 font-body text-sm leading-relaxed mt-6 mb-6">
               We conduct research and develop software solutions that empower organisations to thrive in a data-driven world.
             </p>
             <div className="flex gap-3">
@@ -40,8 +42,8 @@ export default function Footer() {
                 { Icon: Send, href: '#' },
               ].map(({ Icon, href }, i) => (
                 <a key={i} href={href}
-                  className="w-9 h-9 rounded-lg border border-white/10 flex items-center justify-center text-gray-400 hover:text-primary-400 hover:border-primary-600 transition-all">
-                  <Icon size={16} />
+                  className="w-10 h-10 rounded-xl border border-white/10 flex items-center justify-center text-white/50 hover:text-[#722F37] hover:bg-white hover:border-white transition-all duration-300">
+                  <Icon size={18} />
                 </a>
               ))}
             </div>
@@ -49,12 +51,12 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="font-display font-semibold text-white mb-5 text-sm uppercase tracking-widest">Navigation</h4>
+            <h4 className="font-display font-black text-white mb-6 text-[10px] uppercase tracking-[0.2em] opacity-50">Navigation</h4>
             <ul className="space-y-3">
               {['Home', 'About', 'Services', 'Portfolio', 'Contact'].map(l => (
                 <li key={l}>
                   <Link to={l === 'Home' ? '/' : `/${l.toLowerCase()}`}
-                    className="text-gray-400 hover:text-primary-400 text-sm font-body transition-colors">
+                    className="text-white/70 hover:text-white text-sm font-body font-medium transition-colors">
                     {l}
                   </Link>
                 </li>
@@ -64,11 +66,11 @@ export default function Footer() {
 
           {/* Services */}
           <div>
-            <h4 className="font-display font-semibold text-white mb-5 text-sm uppercase tracking-widest">Services</h4>
+            <h4 className="font-display font-black text-white mb-6 text-[10px] uppercase tracking-[0.2em] opacity-50">Expertise</h4>
             <ul className="space-y-3">
-              {['Academic Research', 'Business Research', 'Data Analysis', 'Software Development', 'Training & Education'].map(s => (
+              {['Academic Research', 'Business Strategy', 'Data Analysis', 'Custom Software', 'Technical Training'].map(s => (
                 <li key={s}>
-                  <Link to="/services" className="text-gray-400 hover:text-primary-400 text-sm font-body transition-colors">
+                  <Link to="/services" className="text-white/70 hover:text-white text-sm font-body font-medium transition-colors">
                     {s}
                   </Link>
                 </li>
@@ -78,21 +80,21 @@ export default function Footer() {
 
           {/* Contact */}
           <div>
-            <h4 className="font-display font-semibold text-white mb-5 text-sm uppercase tracking-widest">Contact</h4>
+            <h4 className="font-display font-black text-white mb-6 text-[10px] uppercase tracking-[0.2em] opacity-50">Contact</h4>
             <ul className="space-y-4">
-              <li className="flex items-start gap-3 text-gray-400 text-sm font-body">
-                <MapPin size={16} className="text-primary-400 mt-0.5 shrink-0" />
+              <li className="flex items-start gap-3 text-white/70 text-sm font-body">
+                <MapPin size={16} className="text-white shrink-0 mt-0.5" />
                 Lagos, Nigeria
               </li>
-              <li className="flex items-center gap-3 text-gray-400 text-sm font-body">
-                <Mail size={16} className="text-primary-400 shrink-0" />
-                <a href="mailto:hello@citylightrt.com" className="hover:text-primary-400 transition-colors">
+              <li className="flex items-center gap-3 text-white/70 text-sm font-body">
+                <Mail size={16} className="text-white shrink-0" />
+                <a href="mailto:hello@citylightrt.com" className="hover:text-white transition-colors">
                   hello@citylightrt.com
                 </a>
               </li>
-              <li className="flex items-center gap-3 text-gray-400 text-sm font-body">
-                <Phone size={16} className="text-primary-400 shrink-0" />
-                <a href="tel:+234000000000" className="hover:text-primary-400 transition-colors">
+              <li className="flex items-center gap-3 text-white/70 text-sm font-body">
+                <Phone size={16} className="text-white shrink-0" />
+                <a href="tel:+234000000000" className="hover:text-white transition-colors">
                   +234 000 000 0000
                 </a>
               </li>
@@ -100,13 +102,13 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-white/5 mt-12 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-gray-500 text-sm font-body">
-            © {year} Citylight Research and Technologies. All rights reserved.
+        <div className="border-t border-white/10 mt-16 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+          <p className="text-white/40 text-xs font-body uppercase tracking-widest">
+            © {year} Citylight Research and Technologies.
           </p>
-          <div className="flex gap-6">
-            <span className="text-gray-500 text-sm font-body cursor-pointer hover:text-gray-300 transition-colors">Privacy Policy</span>
-            <span className="text-gray-500 text-sm font-body cursor-pointer hover:text-gray-300 transition-colors">Terms of Service</span>
+          <div className="flex gap-8">
+            <span className="text-white/40 text-[10px] font-black uppercase tracking-widest cursor-pointer hover:text-white transition-colors">Privacy Policy</span>
+            <span className="text-white/40 text-[10px] font-black uppercase tracking-widest cursor-pointer hover:text-white transition-colors">Terms of Service</span>
           </div>
         </div>
       </div>
